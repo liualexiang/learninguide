@@ -367,3 +367,83 @@ asyncio.run(task())
 
 3. 如果是Gatherfuture对象，那么asyncio.run()是运行不起来的，不过loop.run_until_complete是可以的.
 
+
+
+## 多线程与多进程
+
+python的GIL主要影响 CPU 密集型任务，在任何时候，都只能有一个线程运行，并不能真正处理多个任务。但是如果是 IO 密集型任务，一个线程在等待IO，另外一个线程可以运行，所以依然能提高效率。GIL并不影响多进程的任务。如果没有GIL，那么一个程序的多个线程，理论上可以同时跑在多个物理cpu上，因为线程是操作系统调度的最小单位。
+
+python实现多进程的底层库是 multiprocessing，实现多线程的底层库是 threading。多线程multiprocessing 提供了3种进程间通信的方法，分别是Pipe, Queue, Pool。其中Queue是通过 /dev/shm (一个基于内存的文件系统)来实现的。但由于所有的进程都能访问这个路径，因此也有一定的安全风险。Queue的实现是线程安全，不存在锁的问题。由于 /dev/shm 是内存的映射，甚至可以使用 dd 命令对这个路径进行写入来做内存的压测(注意不能超过可用内存大小，否则OOM)
+
+```
+dd if=/dev/zero of=/dev/shm/test bs=1M count=1024
+```
+
+在python 3.2引入了 concurrent.future 的ProcessPoolExecutor 和 ThreadPoolExecutor 来简化多进程和多线程的操作，concurrent.future 也是靠 multiprocessing (pool，没有提供 pipe和 queue) 和 threading 实现的
+
+### 多线程
+
+一个多线程的示例
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+def a(n):
+    time.sleep(n)
+    print(f"sleep_{n}")
+    return n
+
+
+if __name__ == "__main__":
+    # max_workers 指线程池最多能运行的线程数目
+    executor = ThreadPoolExecutor(max_workers=10)
+    # 方法一，直接提交任务，submit不是阻塞的，而是立即完成，要使用 done 方法判断是否真正的执行完成
+    z = executor.submit(a, 1)
+    print(z.done())
+    time.sleep(2)
+    print(z.done())
+    # 通过result拿到真正的结果，result的方法是阻塞的
+    print(z.result())
+    # 方法二：如果任务比较多，我们可以用 map 方法
+    for data in executor.map(a, [3,2,4]):
+        # map方法是按顺序返回的
+        print(data)
+    # 方法三: 在方法一上的优化，通过 as_complete方法一次性取出所有任务的结果，而不是不停的遍历每一个线程的结果
+    sp = [3, 2, 4]
+    jobs = [executor.submit(a, s) for s in sp]
+    for future in as_completed(jobs):
+      data=future.result()
+      print(data)
+
+
+```
+
+在上述示例种，如果使用 top -H -p PID 来观察每个线程，会发现是同时关闭的，这是因为 map 或 as_completed 维护了线程池，没有任务的线程也会等待接受新任务。
+
+### 多进程
+
+多进程的用法，跟多线程类似，区别在于：
+
+1. 一开始就创建了 max_workers 个进程，这个与多线程不一样，多线程是根据 task决定创建多少个线程，如果task多余max_worker，则剩余task会处于等待状态。
+2. 多进程的 executor.map() 的返回值是每个任务结果的可迭代对象，由于这个示例return得是int类型的值，因此直接打印这个int值就可以了。而多线程要用 .result() 方法获得结果
+
+```python
+from concurrent.futures import ProcessPoolExecutor
+import time
+
+
+def a(n):
+    time.sleep(n)
+    print(f"sleep {n}")
+    return n
+
+
+if __name__ == "__main__":
+    executor = ProcessPoolExecutor(max_workers=10)
+
+    tasks = [60,30,40]
+
+    for result in executor.map(a, tasks):
+        print(result)
+```
