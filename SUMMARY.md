@@ -22,7 +22,7 @@
     * [ES Search Query](OpenSource/ELK/ES_Search_Query.md)
     * [ES 基础](OpenSource/ELK/ES_基础.md)
     * [Kibana 可视化](OpenSource/ELK/Kibana_可视化.md)
-    * [部署Logstash ElasticSearch Grafana分析Azure NSG日志示例](OpenSource/ELK/部署Logstash_ElasticSearch_Grafana分析Azure_NSG日志示例.md)
+    * [Logstash配置](OpenSource/ELK/Logstash配置.md)
   * [Ansible 基础](OpenSource/Ansible_Basic.md)    
   * Infra As Code
     * [Pulumi Get Started](OpenSource/Pulumi_get_started.md)

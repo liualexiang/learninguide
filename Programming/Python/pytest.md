@@ -63,3 +63,14 @@ def test_add():
 python -m pytest test/all.py
 ```
 
+## Pycharm debug
+
+在 debug python代码的时候，程序会卡在断点的那一样的位置，那一行的代码处于未被执行的状态。pycharm 对查看断点有几个按钮:
+
+step over: 直接执行这一行的代码
+
+step into：进入到这一行代码内部看具体执行过程
+
+Step into my code：跳过系统包和第三方包，只看自己的代码的执行过程。由IDE判断哪些包是第三方。
+
+step out：在 step into 的过程中，将 step into的剩余部分一次性执行完。step into + step out 相当于 step over
