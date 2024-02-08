@@ -399,6 +399,61 @@ if __name__ == '__main__':
 
 ```
 
+### python 3.9 之后版本的asyncio 使用最佳实践
+
+这里我们通过使用 aiohttp 的标准的 asyncio 方法来执行，在拿到 asyncio 的执行结果的时候，有三种方法:
+第一种是直接返回，适合任务比较少的
+
+第二种是用 asyncio.gather() 收集多个任务，然后等所有的结果都拿到后，再一次性返回
+
+第三种是用 asyncio.as_complete()，将有结果的任务立即返回
+
+```python
+import asyncio
+from asyncio import Task
+import aiohttp
+
+
+async def fetch_status(url: str) -> dict:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            status = response.status
+            return {"status": status, "url": url}
+
+
+async def main() -> None:
+    apple_task: Task = asyncio.create_task(fetch_status("https://www.apple.com"))
+    google_task: Task = asyncio.create_task(fetch_status("https://www.google.com"))
+
+    # # 方法一: 直接获得每一个task结果，但如果任务比较多的时候，不好管理
+    # apple_result = await apple_task
+    # google_result = await google_task
+    # print(apple_result, google_result)
+
+    # 方法二和三需要放到list里
+    tasks = [apple_task, google_task]
+    # # 方法二
+    # # 如果用 gather，那么会在所有任务都完成之后，再返回。
+    # results = await asyncio.gather(*tasks)
+    # #这里的第一个结果在 results[0]，第二个在  results[1]
+    # for result in results:
+    #     print(result)
+
+    # 方法三
+    # 如果用 as_completed，那么一旦有任何一个返回，就会立即返回 as_completed 返回的结果是一个迭代器
+    for future in asyncio.as_completed(tasks):
+        result = await future
+        print(result)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+
+```
+
+
+
 
 
 ## 多线程与多进程
