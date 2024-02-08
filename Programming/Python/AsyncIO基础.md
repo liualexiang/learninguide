@@ -367,6 +367,38 @@ asyncio.run(task())
 
 3. 如果是Gatherfuture对象，那么asyncio.run()是运行不起来的，不过loop.run_until_complete是可以的.
 
+## python 3.9+ 的 to_thread将任意方法转为异步
+
+在 python 3.9开始，我们可以用 asyncio.to_thread()方法，将task放到另外一个thread里来实现异步，在 thread内部本质还是并行的，但是多个 thread之间是异步的。所以相当于是用 cpu 的资源来解决IO的问题
+
+```python
+import asyncio
+from asyncio import Task
+import requests
+from requests import Response
+
+
+async def fetch_status(url: str) -> dict:
+    print(f"fetching status for {url}")
+    response: Response = await asyncio.to_thread(requests.get, url)
+    print("done")
+    return {"status": response.status_code, 'url': url}
+
+
+async def main() -> None:
+    apple_task: Task[dict] = asyncio.create_task(fetch_status('https://apple.com'))
+    google_task: Task[dict] = asyncio.create_task(fetch_status('https://google.com'))
+
+    apple_status: dict = await apple_task
+    google_status: dict = await google_task
+
+    print(apple_status, google_status)
+
+if __name__ == '__main__':
+    asyncio.run(main=main())
+
+```
+
 
 
 ## 多线程与多进程
