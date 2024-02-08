@@ -214,32 +214,63 @@ for i in range(10):
 一个最简单的示例，可以在 asyncio 中，通过 loop.run_in_executor 将 进程池或线程池的future，转换为 asyncio 协程的 future
 
 ```python
-import asyncio, time
-import concurrent.futures
+import asyncio
+import requests
 from concurrent.futures import ThreadPoolExecutor
 
-def sleep_it():
-    print("sleep 1s")
-    time.sleep(1)
-    return "sleep 1"
+
+def get_content(url):
+    with requests.session() as session:
+        content = session.get(url)
+        return content.content
+
 
 async def main():
     loop = asyncio.get_running_loop()
-    fut = loop.run_in_executor(None, sleep_it)
-    result = await fut
-    print("default thread pool", result)
+    with ThreadPoolExecutor() as pool:
+        result1 = await loop.run_in_executor(pool, get_content, "https://www.google.com")
+        #result2 = await loop.run_in_executor(pool, get_content, "https://www.apple.com")
+        print(result1)
+        # print(result2)
 
-    # 这个是创建了自定义的线程池，但实际上，上述None默认也是线程池
-    with concurrent.futures.ThreadPoolExecutor() as pool:
-        result = await loop.run_in_executor(pool, sleep_it)
-        print("custom thread pool", result)
+if __name__ == "__main__":
+    asyncio.run(main())
+    
+```
 
-    # 创建自定义进程池
-    with concurrent.futures.ThreadPoolExecutor() as pool:
-        result = await loop.run_in_executor(pool, sleep_it)
-        print("custom process pool", result)
-        
-asyncio.run( main() )
+在上述代码中，如果有多个任务，我们可以在 main()函数里，运行多个await loop.run_in_executor，如上注释所示。但是这样组织比较复杂，在改的时候也容易该乱。所以我们可以将这个函数拆分成两个，一个只是实现将普通的任务，返回一个 concurrent 的 future对象，另外在 main 函数里开始真正执行。而main 函数里，我们也可以选择 as_complete 做异步返回，也可以用 gather 来收集多个task，让所有task都拿到结果再一次性返回。这样以后改这个返回逻辑的时候，也比较简单，不会动到 async_get_content的内容和逻辑
+
+```python
+import asyncio
+import requests
+from concurrent.futures import ThreadPoolExecutor
+
+
+def get_content(url):
+    with requests.session() as session:
+        content = session.get(url)
+        return content.content
+
+
+async def async_get_content(loop, url):
+    with ThreadPoolExecutor() as pool:
+        result = await loop.run_in_executor(pool, get_content, url)
+        return result
+
+
+async def main():
+    loop = asyncio.get_running_loop()
+    gather_google = async_get_content(loop, "https://google.com")
+    gather_apple = async_get_content(loop, "https://apple.com")
+    tasks = [gather_apple, gather_google]
+    for future in asyncio.as_completed(tasks):
+        result = await future
+        print(result)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
 ```
 
 
