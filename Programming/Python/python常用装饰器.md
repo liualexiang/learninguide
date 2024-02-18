@@ -35,6 +35,22 @@ classmethod 类方法， 可以实现在不实例化类的时候，就能实现�
 
 在工厂方法里特别常用，比如用户可以通过不同方式创建类实例的替代构造函数，而无需创建额外的构造函数
 
+Class method 的cls 代表了类本身，这就意味着，在执行 cls() 的时候，就相当于执行了类，也就是说执行了类里的 \_\_init\_\_方法，而cls()方法里的参数，则会传递给 \_\_init\_\_ 方法。
+
+示例：当我们执行 hawaiian_pizza = Pizza.hawaiian() 的时候，先执行 Pizza类里的 hawaiian()方法，然后将 ['ham','pineapple'] 传递给init函数的toppings，所以我们能通过 hawaiian_pizza.toppings 获得 ['ham', 'pineapple']
+
+```python
+class Pizza:
+    def __init__(self, toppings):
+        self.toppings = toppings
+
+    @classmethod
+    def hawaiian(cls):
+        return cls(['ham', 'pineapple'])
+```
+
+
+
 还有一种用法是给类当作数据类使用，然后修改这个类的属性
 
 ```python
@@ -44,6 +60,8 @@ class A:
 setattr(A, "name", "bb")
 print(A.name)
 ```
+
+
 
 ## staticmethod
 
