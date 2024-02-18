@@ -45,7 +45,7 @@ class A:
 A.sayhello("xx",something="ss")
 ```
 
-
+在类实例化方法中，在 \_\_init\_\_方法里，定义的属性或方法，主要是用于下面多个类方法的相互传递，比如有 sayHello()方法，生成的某些属性或方法，想要传递给 run() 方法里，那么就可以在 sayHello()方法的返回值里，返回成 self.xxx，之后 run() 方法就能引用了
 
 ## abstractmethod
 
