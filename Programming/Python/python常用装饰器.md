@@ -63,13 +63,13 @@ print(A.name)
 
 
 
-## staticmethod
+### staticmethod
 
 staticmethod 静态方法，也是可以在不实例化的时候，使用该方法。staticmethod没办法获得和调用类本身的属性和方法，也没法获得实例化的时候\_\_init\_\_ 方法里的属性。该装饰器有点像是把类外部方法放到了类里，但没法调用和访问类里的一切。只是组织管理代码的一种方式而已。
 
 
 
-## abstractmethod
+### abstractmethod
 
 python中并没有像java 的interface的这种概念。java 的interface可以定义一个接口，但不用具体实现接口的实际内容，由创建某一个class implement interface 的方式来override接口具体内容。python可以通过抽象类来实现，抽象类需要导入一个 abc 的库，在抽象类中定义的方法，在实现的类上必须将其实现，否则会报错。需要学习设计模式以了解更多
 
@@ -87,7 +87,7 @@ u1.get_name(name='alex')
 
 ```
 
-## dataclass
+### dataclass
 
 dataclass数据类：用于快速创建一个类似 C/C++/C# 等语言所支持的 结构体 struct的数据载体。主要关注数据的操作。
 
@@ -116,7 +116,7 @@ print(d1 > d2)
 @dataclass(frozen=Ture)
 ```
 
-## property
+### property
 
 使用 property 可以允许我们通过操作属性的方式，去操作类里面的方法，使用起来更简洁。使用property也体现了OOP里的封装的特性
 
@@ -140,9 +140,11 @@ square.side = 5
 print(square.area)
 ```
 
+### dataclass 和 property 的关系与区别
 
+我们发现，使用property可以将一个类的方法，变成属性的形式进行操作，比如设置name，age，上述示例的设置side等。那么感觉使用dataclass 也能做到？实际上确实如此。dataclass比较适合一些简单的场景，主要是修改了类的 \_\_init\_\_ 方法和 \_\_repr\_\_ 方法，能快速给类的一些属性复制。而property能够实现更细粒度的控制，比如可以控制属性里的 age，要求必须大于0，小于150，设置温度，必须大于 -273.15度等等 （虽然 class里可以通过 \_\_post_init\_\_ 方法对实例化类的时候起一些约束作用，但是在实例化之后，直接对实例化过的对象的属性或方法做修改的时候，这个约束就不再生效了）
 
-### 使用 functools 的 wraps 装饰器
+## 使用 functools 的 wraps 装饰器
 
 在默认情况下，如果我们创建了一个装饰器，那么当我们去打印执行函数的名字，文档等，返回的是 wrapper 函数的相关信息，而并非原函数的相关内容。当然我们可以通过覆盖的方式，将 wrapper 函数的 \_\_name\_\_ 被原函数覆盖
 
@@ -184,7 +186,7 @@ print(printa.__name__)
 
 
 
-### typing 使用简介
+## typing 使用简介
 
 python是一门动态类型语言，为了在开发的时候，更好的写注解，让程序员能更清晰的描述和理解代码，我们可以使用 typing导入对应的数据类型，这样在写程序的时候，IDE也能更友好的给出提示。注意：这个只是一个注解而已，并不强制要求数据类型和注解的一致。比如下面的示例，即使我们把Dict里定义成 int类型，也不会报错
 
