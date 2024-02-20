@@ -1,8 +1,56 @@
-# 有关gRPC和protobuf的理解
+# RPC与REST
 
-## 协议网络传输层的理解
+## RPC 和 REST的区别
+
+RPC和REST是一种编程的风格，RPC风格的代码，也可以跑在HTTP上，也可以跑在其他协议上。对于RPC在HTTP上的代码，和REST的区别是这样的：
+
+1. REST 关注HTTP Method，比如要获得一个用户的属性，那么我们一般用 GET /api/v1/user/alex 这样的方法。其中 GET表示是获得，要删除的话，则是 DELETE /api/v1/user/alex
+
+2. RPC 不关注 HTTP Method，具体的行为是在 PATH或者Body里体现。比如 POST /api/v1/getUser/alex 或者 POST /api/v1/deleteUser/alex。不过更常见的，并不是将方法放到path里，而是在body里（保持URL的干净简洁，更容易管理，放path里不常见）。以jsonrpc为例，我们可以改为
+
+   ```json
+   POST /api
+   {
+     "jsonrpc": "2.0",
+     "method": "getUser",
+     "params": {"name": "alex"},
+     "id": 1
+   }
+   
+   POST /api
+   {
+     "jsonrpc": "2.0",
+     "method": "deleteUser",
+     "params": {"name": "alex"},
+     "id": 2
+   }
+   ```
+
+3. 需要注意: 有时候有些系统并为严格区分 rpc还是rest，所以会遇到混用的情况，同一个业务系统，不同的开发者，开发不同的接口，有可能风格都不一样。
+
+4. RPC也可以跑在非http协议上，如websocket等。RPC 风格也有很多常见的类型，比如上述示例中提到的 JSON-RPC，或者 GRPC，XML-RPC, SOAP 等等。
+5. 
+
+
+
+## grpc协议网络传输层的理解
+
 gRPC是跑在HTTP2之上的（可以是明文的HTTP，不加TLS），protobuf可以通过gRPC协议进行传输，使用WireShark抓包分析如下
 ![demo](./img/protobuf_grpc_wireshark.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## gRPC和Protobuf测试环境搭建：
 
