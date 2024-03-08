@@ -414,7 +414,7 @@ $ git push --mirror https://github.com/hbdoy/new_project
 
 ## Git Config
 
-默认情况下，git 仓库将会用 ~/.gitconfig 配置文件里的配置，如果有多个不同的仓库，想要让部分仓库使用另外的邮箱和用户名，那么可以将这些仓库放在一个特定路径下，然后通过 includeIf 来包含这个路径，然后在这个路径下的repo，都会用另外一个配置文件。想要检查当前repo的git配置，可以直接在仓库路径下输入 git config user.email 或者  git config user.name
+默认情况下，git 仓库将会用 ~/.gitconfig 配置文件里的配置，如果有多个不同的仓库，想要让部分仓库使用另外的邮箱和用户名，那么可以将这些仓库放在一个特定路径下，然后通过 includeIf 来包含这个路径，然后在这个路径下的repo，都会用另外一个配置文件。想要检查当前repo的git配置，可以直接在仓库路径下输入 git config user.email 或者  git config user.name (需要注意的是，git配置里尽量避免使用 ~，可能导致配置不生效)
 
 ```
 [user]
@@ -443,3 +443,24 @@ $ git push --mirror https://github.com/hbdoy/new_project
 [pull]
         rebase = false
 ```
+
+如果有多个git 配置文件，那么可以用下面的命令来查看
+
+```
+git config --list --show-origin
+```
+
+Git 也有一个全局配置
+
+```
+git config --system --edit
+```
+
+## Git Debug
+
+在执行git 任何命令的时候，如果想要显示更详细的日志，可以在前面加上 GIT_TRCE=1 来显示
+
+```
+GIT_CURL_VERBOSE=1 GIT_TRACE=1 git clone xxx
+```
+

@@ -20,7 +20,6 @@
   * ElasticSearch
     * [ES Get Started](OpenSource/ELK/ES_Get_Started.md)
     * [ES Search Query](OpenSource/ELK/ES_Search_Query.md)
-    * [ES 基础](OpenSource/ELK/ES_基础.md)
     * [Kibana 可视化](OpenSource/ELK/Kibana_可视化.md)
     * [Logstash配置](OpenSource/ELK/Logstash配置.md)
   * [Ansible 基础](OpenSource/Ansible_Basic.md)    
