@@ -32,6 +32,8 @@ contract HelloWorld {
 
 **思考**: public 的方法，允许其他合约调用，可以作为代理合约，也可以修改 storage 类型的数据，类似区块链预言机Oracle，就可以通过这种方法，将现实世界的数据，写入到区块链。同时我们也发现，view 的数据是不会消耗gas fee，但是如果是 update的操作，则消耗 gas fee。
 
+数据位置data location: 有三种，storage, memory和 call data。storage就是存在区块链上的数据，写入和更新需要 gas fee。memory使在内存里，只有合约执行的时候才有，执行完就释放，一般用于函数参数，局部变量或函数执行期间创建的数组等。calldata 用于另外一个合约传过来的参数，calldata是只读的。
+
 扩展：派生合约指的是从父合约继承来的新合约。示例：B就是A的派生合约
 
 ```solidity
@@ -170,4 +172,12 @@ contract Updater {
 ## 故障排查
 
 如果合约在执行的时候，有这样的报错 "0x0 Transaction mined but execution failed"，表示交易已经被矿工打包，并且在区块链上被确认，但是在执行过程中失败了，这时候通常会发生 revert，也就是合约执行出错导致回滚。举个例子，比如合约B调用合约A，但是输入的参数不对，就会出现这个情况
+
+
+
+
+
+## 参考资料 
+
+https://docs.alchemy.com/docs/when-to-use-storage-vs-memory-vs-calldata-in-solidity
 
