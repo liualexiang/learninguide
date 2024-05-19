@@ -1,0 +1,153 @@
+# Solidity 基础 
+
+## 初步认识
+
+在线学习IDE: https://remix.ethereum.org/
+
+solidity 里所有的 function都要在 contract下，一个contract就对应以太坊上一个合约地址。一般来说，一个dApp可能会有多个合约。每次合约部署，合约地址都会更新。对于 dApp的开发来说，一个常见的做法是使用代理或入口合约，它的地址是永远不变的，这个代理合约有一个链接到其他实现合约的指针，当需要升级某个功能的时候，开发者可以在新的地址合约，然后更新这个指针。（在代理合约里，需要定一个专门的函数，来更新这个地址，这个地址一般是一个状态变量。实现合约可以更新这个代理合约里的状态变量，由此2个合约就能实现）
+
+一个示例
+
+```solidity
+pragma solidity >=0.8.2 <0.9.0;
+
+contract HelloWorld {
+    string myName;
+    function setName(string memory name) public{
+         myName = name;
+    }
+    function getName() public view returns(string memory) {
+        return myName;
+    }
+
+    function ss() public pure returns(uint104) {
+        return 1+2;
+    }
+}
+```
+
+从上面示例里，我们能看到，一个合约里定义 function的时候，我们需要指明该function的可见度，比如我用的是 public，则表示区块链上任何人都能调用该方法。如果是 private，则表示只有合约本身能调用。internal表示只有当前合约以及其派生合约才能调用。external表示只有外部合约才能调用该方法。
+
+扩展：派生合约指的是从父合约继承来的新合约。示例：B就是A的派生合约
+
+```solidity
+contract A {
+// ...
+}
+contract B is A {
+// ...
+}
+```
+
+
+
+同时function还有一些修饰符，比如 view,pure或payable，view表示不花费 gas，pure表示不读区合约里定义的变量
+
+
+
+## 合约之间的调用
+
+比如我们有一个这样的合约，此时我们想通过另外一个合约，改变当前合约里的myData，假设当前合约文件名为 helloworld.sol，此时需要先将这个合约部署，然后得到合约的地址
+
+```solidity
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.2 <0.9.0;
+
+contract HelloWorld {
+    struct Data {
+        uint number;
+        string name;
+    }
+    Data public myData;
+
+    function getData() public view returns(Data memory) {
+        return myData;
+    }
+    function setData(uint _number, string memory _name) public {
+        myData.number = _number;
+        myData.name = _name;
+    }
+}
+```
+
+在另外一个合约里，如果我们有当前合约的代码，我们需要导入，然后定义一个helloWorldAddress合约地址，在部署的时候，需要将这个合约地址传进去
+
+```solidity
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.2 <0.9.0;
+import "./helloworld.sol"; // 引入 HelloWorld.sol 文件
+
+contract Updater {
+    
+    address public helloWorldAddress;
+
+    // 构造函数，设置 HelloWorld 合约的地址
+    constructor(address _helloWorldAddress) {
+        helloWorldAddress = _helloWorldAddress;
+    }
+
+    // 更新 HelloWorld 合约中的 myData
+    function updateData(uint _number, string memory _name) public {
+        // 调用 HelloWorld 合约的 setData 方法
+        HelloWorld(helloWorldAddress).setData(_number, _name); // 直接调用 HelloWorld 合约的函数
+    }
+}
+```
+
+但有时候，我们调用的合约是别人写的，并不是我们自己写的，此时我们可以通过区块链浏览器，获得这个合约的ABI (application binary interface，类似API)，通过 ABI 就能知道要调用的方法里的函数名，以及数据类型
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.2 <0.9.0;
+
+// 定义与 HelloWorld 合约交互的接口
+interface IHelloWorld {
+    function setData(uint _number, string memory _name) external;
+    function myData() external view returns (uint, string memory);
+}
+
+contract Updater {
+    address public helloWorldAddress;
+
+    // 构造函数，设置 HelloWorld 合约的地址
+    constructor(address _helloWorldAddress) {
+        helloWorldAddress = _helloWorldAddress;
+    }
+
+    // 更新 HelloWorld 合约中的 myData
+    function updateData(uint _number, string memory _name) public {
+        // 创建接口实例
+        IHelloWorld helloWorld = IHelloWorld(helloWorldAddress);
+        // 调用 HelloWorld 合约的 setData 方法
+        helloWorld.setData(_number, _name);
+    }
+
+    // 获取 HelloWorld 合约中的 myData
+    function getData() public view returns (uint, string memory) {
+        // 创建接口实例
+        IHelloWorld helloWorld = IHelloWorld(helloWorldAddress);
+        // 调用 HelloWorld 合约的 myData 方法
+        return helloWorld.myData();
+    }
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 故障排查
+
+如果合约在执行的时候，有这样的报错 "0x0 Transaction mined but execution failed"，表示交易已经被矿工打包，并且在区块链上被确认，但是在执行过程中失败了，这时候通常会发生 revert，也就是合约执行出错导致回滚。举个例子，比如合约B调用合约A，但是输入的参数不对，就会出现这个情况
+

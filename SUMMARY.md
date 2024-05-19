@@ -98,5 +98,7 @@
 * Security
   * [HTTP常见攻击](./Security/HTTP常见攻击.md)
   * [加密与签名](./Security/加密与签名.md)
+* Solidity
+  * [Solidity基础](./Solidity/solidity_basic.md)
 * 收藏链接
   * [链接](./Tools/收藏链接.md)
