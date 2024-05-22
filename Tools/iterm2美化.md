@@ -43,3 +43,8 @@ iterm2_print_user_vars() {
 
 Command + D 创建一个竖窗口
 
+## 网页终端
+
+tmate(输入 tmate -F这个命令后，可以看到有几个url，其中有read only，也有可以直接操作的，以及ssh连接)
+
+upturn
