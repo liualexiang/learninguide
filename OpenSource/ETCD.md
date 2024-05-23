@@ -36,7 +36,7 @@ etcdctl --user USER:PASSWORD member list
 etcdctl endpoint status
 
 # 查看IP1,IP2,IP3节点状况，并指定证书，可看到哪个节点是主节点
-etcdctl --endpoints https://IP1:2379,https://IP2:2379,https://IP3:2379 --cacert /opt/etcd/cert/ca.crt --cert /opt/etcd/cert/server.crt --key /opt/etcd/cert/server.key --insecure-skip-tls-verify endpoint status
+etcdctl --endpoints https://IP1:2379,https://IP2:2379,https://IP3:2379 --cacert /opt/etcd/cert/ca.crt --cert /opt/etcd/cert/server.crt --key /opt/etcd/cert/server.key --insecure-skip-tls-verify endpoint status -w=table
 ```
 
 ETCD 搭建好集群后，前面可以挂一个TCP 负载均衡器，流量无论写到哪个节点都可以。或者直接在DNS解析到每一个节点上，应用配置这个DNS（但节点挂了如何维护DNS需要考虑）。或者是应用直接配置节点地址，client sdk会自己retry。
@@ -60,7 +60,7 @@ ETCD 搭建好集群后，前面可以挂一个TCP 负载均衡器，流量无�
 
 ### ETCD 部署注意
 
-etcd启动的时候需要打开 boltDB文件，如果DB文件过大，会导致启动过慢，同时会用 nmap 将db 映射到内存，因此内存一定要大雨DB配置(quota-backend-bytes)，默认的 DB quota配额是2GB。建议开启压缩，否则 etcd所有变更历史，都在db里，会导致db一直膨胀。压缩模块会回收旧版本的空间，具体原理是：将旧版本空间打一个free tag，如果后续写入数据可以复用这个空间，不用申请新空间。如果将 quota-backend-bytes 改成0，就是禁用配额，不建议这么设置，默认不设置就是2GB
+etcd启动的时候需要打开 boltDB文件，如果DB文件过大，会导致启动过慢，同时会用 nmap 将db 映射到内存，因此内存一定要大雨DB配置(quota-backend-bytes)，默认的 DB quota配额是2GB。建议开启压缩，否则 etcd所有变更历史，都在db里，会导致db一直膨胀。压缩模块会回收旧版本的空间，具体原理是：将旧版本空间打一个free tag，如果后续写入数据可以复用这个空间，不用申请新空间。如果将 quota-backend-bytes 改成0，就是禁用配额，不建议这么设置，默认不设置就是2GB。使用 etcdctl endpoint status 能看到当前节点的容量，想要看所有节点，要用 --endpoints 指明节点.
 
 etcd不支持数据分片，每一个节点都是完整的数据。所以ETCD部署的时候，DB不要超过8GB.
 
