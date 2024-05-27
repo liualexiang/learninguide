@@ -40,6 +40,7 @@ buckets 就是要做的分类，其中 buckets type选择 X-Axis，Aggregation �
 
 * 创建Search，并在Dashboard中展示
   
+
 在Discover中，可以创建一个search，在search左侧菜单中，添加要展示的字段(默认不添加则显示所有字段)，搜索框可以输入 * 全部搜索，也可以自定义，之后保存  
 在创建dashboard的时候，点击add，除了添加之前在visualize 中保存的charts之外，还可以添加刚刚保存的search结果.
 
@@ -55,3 +56,29 @@ Region Map 的使用技巧如下(在7.8.0版本测试)：
 
 [^_^]:
     还未按照下面的blog测试:https://www.cnblogs.com/sanduzxcvbnm/p/12841986.html
+
+
+
+## Kibana short url
+
+使用 kibana short url，需要调用 kibana 的api，而并非 ES API，这里的locatorId必须叫LEGACY_SHORT_URL_LOCATOR 这个值
+
+```shell
+curl -X POST "http://localhost:5601/api/short_url" \
+-H "kbn-xsrf: true" \
+-H "Content-Type: application/json" \
+-u "USERNAME:PASSWORD" \
+-d '{
+  "locatorId": "LEGACY_SHORT_URL_LOCATOR",
+  "params": {
+    "url": "/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:%272024-05-27T16:13:14.294Z%27,to:%272024-05-27T16:13:36.567Z%27))&_a=(columns:!(customer_first_name,currency),filters:!(),index:%27ff959d40-b880-11e8-a6d9-e546fe2bba5f%27,interval:auto,query:(language:kuery,query:%27%27),sort:!(!(order_date,desc)))"
+  }
+}'
+```
+
+之后返回的json里有一个值，kibana的 url就是如下拼接
+
+http://127.0.0.1:5601/goto/4ba69454-283e-4f04-ad86-3f6c84f66239
+
+
+
