@@ -1,5 +1,36 @@
 # ES Search 和 Query常用语句
 
+## ES 查询
+
+下面有三个查询，在多数情况下是等效的，都是表达要查询 message字段里包含 device risk detected 的内容。但 query_string支持通配符和正则，match_phrase不支持。
+
+```
+查询一
+"query_string": {
+   "query": "message: \"device risk detected\"",
+   "default_field": "*",
+}
+
+查询二
+"query_string": {
+   "query": "\"device risk detected\"",
+   "default_field": "message",
+}
+
+查询三
+"match_phrase": {
+   "message" {
+      "query": "device risk detected
+      }
+}
+```
+
+
+
+
+
+## 示例
+
 1. 搜索特定的@log_group 字段，以及 @message中包含403的
 ```
 GET _search
