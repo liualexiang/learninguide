@@ -166,6 +166,36 @@ jobs:
 
 
 
+Github Action 里的checkout拉代码，是通过 graft 嫁接commit得方式获得，但是这个 graft commit 也是主分支的commit。我们在github action里获得主分支最新tag
+
+```yaml
+      - name: get_tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          tag=$(git describe --tags --exact-match)
+          echo "latest_tag=${tag}"
+          echo "tag=${tag}" >> $GITHUB_OUTPUT
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: myrepo.gcr.io/my_service
+          tags: type=raw,value=${{ steps.get_tag.outputs.tag }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
+          push: true
+
+```
+
+
+
+
+
 ## 自己写github action
 
 默认github action可以支持其他仓库，使用的时候为uses: org/repo:tag 的方式调用。github action编写支持Docker，js，以及composite三种方式，在action的git repo里，一定要指定 action.yaml或 action.yml，在这个文件的run里，定义了action runner的入口
