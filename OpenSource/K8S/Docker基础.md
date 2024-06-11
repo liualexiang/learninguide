@@ -47,6 +47,12 @@ bash-4.4$ cat /proc/self/uid_map
 
 在使用COPY 指令将文件到Docker内部的时候，注意目标地址最好写绝对路径，否则在下面的命令中，可能找不到这个文件。或者使用 WORKDIR指令来指定工作目录
 
+### 查看docker 镜像
+
+```
+dive nginx:latest
+```
+
 
 
 ### 使用multi stage进行构建
