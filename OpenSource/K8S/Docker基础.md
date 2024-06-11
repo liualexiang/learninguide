@@ -147,6 +147,25 @@ docker run --platform linux/arm64 -p 80:80 liualexiang/dockertest:latest
 docker build --platform linux/arm64 -t xxx .
 ```
 
+在使用多阶段构建的时候，如果有些库是依赖于系统里的库，那么使用 一些精简的docker镜像可能会出问题，此时我们最好使用静态编译，具体做法是将 CGO_ENABLED=0
+
+```dockerfile
+FROM --platform=linux/amd64 golang as builder
+WORKDIR /builder
+COPY main.go main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main main.go
+
+FROM alpine:3.16 AS certs
+RUN apk --no-cache add ca-certificates
+
+FROM scratch as prod
+WORKDIR /app
+COPY --from=certs /etc/ssl/certs /etc/ssl/certs
+COPY --from=builder /builder/main main
+CMD ["./main"]
+
+```
+
 
 
 ## Docker 项目优化
