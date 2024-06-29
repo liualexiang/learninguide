@@ -87,11 +87,13 @@
   * 设计模式
     * [设计模式](./Programming/设计模式/设计模式.md)
     * [面向对象的思想](./Programming/设计模式/面向对象的思想.md)
+    * [编程概念](./Programming/设计模式/编程概念.md)
   * Go
     * [Go 基础](./Programming/Go/Go基础.md)
   *  前端
 	* [Vue](./Programming/前端/Vue/Vue基础.md)
 	* [NodeJS](./Programming/前端/NodeJS/NodeJS基础.md)
+  
 
 * Tools
   * [视频处理ffmpeg ](./Tools/视频处理ffmpeg.md)
