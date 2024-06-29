@@ -91,7 +91,7 @@
     * [Go 基础](./Programming/Go/Go基础.md)
   *  前端
 	* [Vue](./Programming/前端/Vue/Vue基础.md)
-	* [NodeJS](NodeJS基础.md)
+	* [NodeJS](./Programming/前端/NodeJS/NodeJS基础.md)
 
 * Tools
   * [视频处理ffmpeg ](./Tools/视频处理ffmpeg.md)
