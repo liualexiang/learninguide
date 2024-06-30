@@ -49,6 +49,7 @@
     * [深入了解K8S](OpenSource/K8S/K8S_DeepDive.md)
     * [混沌工程](OpenSource/K8S/chaos/混沌工程.md)
     * [Istio](./OpenSource/K8S/istio.md)
+    * [生态](./OpenSource/K8S/生态.md)
   * [Cloud_Custodian](./OpenSource/compliance/Cloud_Custodian.md)
   * [Jenkins Basic](OpenSource/Jenkins_Basic.md)
   * [Nginx](./OpenSource/Nginx/Nginx配置.md)
