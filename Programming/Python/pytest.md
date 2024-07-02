@@ -62,6 +62,19 @@ def test_add():
 ```shell
 python -m pytest test/all.py
 ```
+## coverage
+使用coverage可以轻松查看pytest的覆盖率
+```python
+# run test
+python -m pytest test_all.py
+
+# run report by coverage command
+coverage run -m pytest test_all.py
+coverage report
+
+# get html report
+coverage html
+```
 
 ## Pycharm debug
 
