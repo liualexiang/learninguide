@@ -101,6 +101,77 @@ GET /_search
 ```
 
 
+### 查询中的 and 关系
+下面的两个，使用 query_string 和 match_phrase 是等效的，都是在message字段里，既包含"search part ,anything here" 又包含 "searchName"。只是 query_string 更灵活，毕竟支持 Kibana上的query，如果逻辑太复杂，用query_string会简单点。match_phrase会更精确。如果数据量非常大的话，match_phrase 会比 query_string效率高一些。
+查询一
+
+```json
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "query_string": {
+                        "query": "message: (\"search part ,anything here\" AND searchName)"
+                    }
+                },
+                {
+                    "range": {
+                        "@timestamp": {
+                            "from": "now-1m",
+                            "to": "now",
+                            "include_lower": true,
+                            "include_upper": true,
+                            "boost": 1
+                        }
+                    }
+                }
+            ],
+            "adjust_pure_negative": true,
+            "boost": 1
+        }
+    }
+}
+```
+
+查询二
+```json
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                  "match_phrase": {
+                    "message": {
+                        "query": "search part ,anything here"
+                    }
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "message": {
+                        "query": "searchName"
+                    }
+                  }
+                },
+                {
+                    "range": {
+                        "@timestamp": {
+                            "from": "now-15h",
+                            "to": "now",
+                            "include_lower": true,
+                            "include_upper": true,
+                            "boost": 1
+                        }
+                    }
+                }
+            ],
+            "adjust_pure_negative": true,
+            "boost": 1
+        }
+    }
+}
+```
 
 ### 查询中是否加 query
 

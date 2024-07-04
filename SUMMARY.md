@@ -91,6 +91,7 @@
     * [编程概念](./Programming/设计模式/编程概念.md)
   * Go
     * [Go 基础](./Programming/Go/Go基础.md)
+    * [Go常用功能](./Programming/Go/Go常用功能.md)
   *  前端
 	* [Vue](./Programming/前端/Vue/Vue基础.md)
 	* [NodeJS](./Programming/前端/NodeJS/NodeJS基础.md)
