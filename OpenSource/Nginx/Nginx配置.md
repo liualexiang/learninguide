@@ -144,7 +144,31 @@ spec:
     }
 ```
 
+在 nginx 中通过判断访问的path，决定转发路径
 
+```nginx
+map $uri $is_api_match {
+    default 0;
+    ~^/api/v1/sol(_mainnet|_testnet)?/(query|update) 1;
+    ~^/api/v1/polkadot(_mainnet|_testnet)?/(query|update) 1;
+}
+
+server {
+        listen 80;
+        server_name  _;
+        client_max_body_size 8M;
+        resolver 10.0.0.2 valid=60s;
+        resolver_timeout 3s;
+        location ~* ^/api/v1/ {
+          if ($is_api_match) {
+            set $backend aaa.com;
+            proxy_pass http://$backend;
+        }
+            set $backend bbb;
+            proxy_pass http://$backend;
+    }
+}
+```
 
 ## Nginx proxy_pass保留域名
 
