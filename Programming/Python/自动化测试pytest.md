@@ -183,6 +183,24 @@ class TestMain:
 
 ```
 
+#### 使用 mock 方法来patch 函数返回值
+pytest 可以和 unittest 结合使用，比如当我们在 lambda_function.py 文件里，有一个 get_string_data 的函数，这个函数需要访问外部数据，但我们每次测试的时候，不想让这个接口访问外部数据，那么就可以用 mock的 patch方法，来模拟返回值。在模拟的时候，可以用with上下文管理器结合yield方法，也可以直接用装饰器。两种用法都是可以的
+```python
+import pytest
+from unittest.mock import patch
+
+    @pytest.fixture(autouse=True)
+    def test_get_string_data(self):
+        with patch('lambda_function.get_string_data') as mock_get_string_data:
+            mock_get_string_data.return_value = "this is mock return"
+            yield mock_get_string_data
+            
+    @patch("lambda_function.my_list", new=["a","b"])
+    def test_main(self):
+        from lambda_function import lambda_handler
+        lambda_handler(None, None)
+```
+
 #### conftest.py
 整个项目中所有需要使用的 fixture 固件，都会放到 conftest.py 文件里，pytest会自动引用，无需手动指定
 
