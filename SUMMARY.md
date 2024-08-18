@@ -81,7 +81,7 @@
     * [Python的语法糖](./Programming/Python/Python的语法糖.md)
     * [Python常用装饰器](./Programming/Python/python常用装饰器.md)
     * [AsyncIO基础](./Programming/Python/AsyncIO基础.md)
-    * [自动化测试pytest](自动化测试pytest.md)
+    * [自动化测试pytest](./Programming/Python/自动化测试pytest.md)
     * [python中的下划线](./Programming/Python/Python中的下划线.md)
     * [面向对象](./Programming/Python/面向对象.md)
     * [Python的坑](./Programming/Python/python的坑.md)

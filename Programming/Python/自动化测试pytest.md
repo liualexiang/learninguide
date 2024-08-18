@@ -183,6 +183,9 @@ class TestMain:
 
 ```
 
+#### conftest.py
+整个项目中所有需要使用的 fixture 固件，都会放到 conftest.py 文件里，pytest会自动引用，无需手动指定
+
 
 ## Pycharm debug
 
