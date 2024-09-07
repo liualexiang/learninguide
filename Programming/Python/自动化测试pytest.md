@@ -201,9 +201,78 @@ from unittest.mock import patch
         lambda_handler(None, None)
 ```
 
+#### 使用 MagicMock 来指定mock一个类函数或方法
+
+当我们需要mock一个类或函数的时候，我们想要模拟这个类方法的行为，比如requests.Session().get()的这个方法，我们模拟的 requests.Session()是有 get()的这个方法，此时我们可以用 MagicMock() 来模拟一个方法，之后用 return_value来表示这个方法的返回值，如果返回值也是一个方法，比如是一个get()方法，就可以用 return_value.get.return_value=MagicMock()的写法。
+在@patch("requests.Session")的装饰器里，patch方法，会默认就将 requests.Session 创建一个 MagicMock()，然后在执行这个装饰器下面函数的时候，会将这个创建的 MagicMock()作为第一个参数，传给下面的装饰器函数，比如我下面的例子，则会自动传给 mock_session。而mock_response本身就是 pytest.fixture指定的一个 MagicMock()，其有两个属性，一个是 text，一个是status_code。我们在 mock_session_instance.get.return_value = mock_response的这行代码，就将 mock_session 的 get()方法(即 requests.Session().get()方法)和 mock_response进行了绑定
+```python
+@pytest.fixture
+def mock_response():
+    mock = MagicMock()
+    mock.text = "Example Domain"
+    mock.status_code = 200
+    return mock
+
+@patch("requests.Session")
+def test_connect_to_somewhere(mock_session, mock_response):
+    mock_session_instance = mock_session.return_value
+    mock_session_instance.get.return_value = mock_response
+    
+    url = "https://www.example.com"
+    connection = ConnectToSomewhere(url)
+    
+    assert connection.url == url
+    assert connection.response.status_code == 200
+    assert connection.response.text == "Example Domain"
+    
+    mock_session_instance.get.assert_called_once_with(url)
+
+```
 #### conftest.py
 整个项目中所有需要使用的 fixture 固件，都会放到 conftest.py 文件里，pytest会自动引用，无需手动指定
 
+#### 使用parametrize进行参数化测试
+
+比如我的代码是这样的，此时如果对每一个场景都单独写一个test函数，就会很麻烦，比如年纪大于18写一个，小于18写一个，年龄格式不对的多种场景(输入的是文本，年龄是负数，是小数等)，那么要写太多的test_is_audit函数，会很麻烦
+```python
+def is_adult(age: int):
+    if not isinstance(age, int) or age < 0:
+        raise ValueError("Age must be an integer and greater than 0")
+    if age >= 18:
+        return True
+    else:
+        return False
+
+```
+
+此时我们可以用 pytest.mark.parametrize 来进行参数化设置。在pytest.mark.parametrize里，第一个参数里存的是要给测试函数传的参数，如果有多个，用逗号分隔。第二个参数是一个list，里面存的是第一个参数对应的值，每一个list代表了一组值，可以测试多组。
+由于上面的测试，包含函数成功返回，和异常抛出错误，所以我们分成两个test function进行测试.
+```python
+import pytest
+from data import is_adult
+
+@pytest.mark.parametrize("age, expected", [
+    (20, True),
+    (18, True),
+    (17, False),
+    (0, False),
+])
+def test_is_adult(age, expected):
+    assert is_adult(age) == expected
+
+@pytest.mark.parametrize("invalid_age", [
+    "xxx",
+    -1,
+    3.14,
+])
+def test_is_adult_invalid_input(invalid_age):
+    with pytest.raises(ValueError, match="Age must be an integer and greater than 0"):
+        is_adult(invalid_age)
+
+if __name__ == '__main__':
+    pytest.main()
+
+```
 
 ## Pycharm debug
 
