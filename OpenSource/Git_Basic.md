@@ -374,8 +374,23 @@ templatedir = /home/USERNAME/.git-template/
 
 ```
 
+## Git Tag
+git tag 一般比较常见的有：轻标签（lightweight tag）和注释标签（annotated tag）。如果使用 git cat-file -t TAG_NAME 观察，轻标签是一个commit，注释标签是一个tag。用git show TAG_NAME对比，轻标签只能看到commitid，注释标签能看到很多信息。
+* 创建轻标签 
 
+```
+git tag v1.0
+```
+* 创建注释标签
+```
+git tag -a v1.0 -m "Version 1.0 release"
+```
 
+如果想列出一个commit上的tag，可以用 git describe 命令，如果不加 --tags，有可能列出来的是轻标签，而非最新的标签。
+```
+git fetch --tags
+git describe --tags HEAD
+```
 ## git repo搭建
 
 ```shell
