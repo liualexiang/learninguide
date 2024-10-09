@@ -94,6 +94,7 @@
   * Go
     * [Go 基础](./Programming/Go/Go基础.md)
     * [Go常用功能](./Programming/Go/Go常用功能.md)
+    * [结构体入门](./Programming/Go/结构体入门.md)
   *  前端
 	* [Vue](./Programming/前端/Vue/Vue基础.md)
 	* [NodeJS](./Programming/前端/NodeJS/NodeJS基础.md)
