@@ -98,6 +98,8 @@
   *  前端
 	* [Vue](./Programming/前端/Vue/Vue基础.md)
 	* [NodeJS](./Programming/前端/NodeJS/NodeJS基础.md)
+* Math
+	* [多项式插值法](./Math/多项式插值法.md)
   
 
 * Tools
