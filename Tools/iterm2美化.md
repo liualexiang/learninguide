@@ -11,6 +11,7 @@ zsh-syntax-highlighting
 zsh-autosuggestions
 git-open
 kubectl
+pyautoenv
 ```
 
 ## item2状态栏
