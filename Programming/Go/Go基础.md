@@ -82,8 +82,15 @@ sli := []int{1,2,3,4}
 
 
 
-
-
+## Go 模块下载
+首先项目里要有 go.mod 文件，这个文件里包含了依赖包的信息，如果想要整理下这个文件，可以用 go mod tidy，会清理没用到的包。如果没有 go mod文件，可以初始化这个go项目。比如go代码都在当前路径的 my_project 文件夹下，那么我们用下面的命令，可以在该文件夹下创建 go.mod
+```shell
+go mod init my_project
+```
+之后下载包的时候用
+```
+go get github.com/ethereum/go-ethereum/crypto
+```
 
 
 
