@@ -188,9 +188,71 @@ contract AlexLiuCoin is ERC20, Ownable {
 
 
 
+### 获得合约data
+我们可以获得合约data，然后对这个data 签名，之后将签名广播出去，就完成了合约部署。
+```
+brew install truffle
+mkdir solidity-code && cd solidity-code
+truffle init
 
+```
+然后把自己的代码放在solidity-code/contracts 文件夹下，在solidity-code/migrations 路径创建一个 deployment.js，内容(contracts路径下文件名为AlexCoin.sol)
+```js
+// migrations/2_deploy_contracts.js
 
+const AlexCoin = artifacts.require("AlexCoin");
 
+module.exports = async function (deployer) {
+    // 部署合约
+    await deployer.deploy(AlexLiuCoin, 1000000); // 传入初始供应量
+
+    // 获取合约实例
+    const instance = await AlexLiuCoin.deployed();
+
+    // 获取合约的 ABI 和字节码
+    const bytecode = instance.constructor.bytecode;
+    const abi = instance.constructor.abi;
+
+    // 获取数据字段
+    const data = instance.constructor.contract._jsonInterface[0].bytecode; // 获取部署数据
+    console.log("Contract deployment data:", data);
+
+    // 如果需要对数据进行签名或其他操作，可以在这里继续处理
+};
+
+```
+
+项目跟路径创建一个 getData.js，内容如下
+```js
+// getData.js
+
+const path = require('path');
+const fs = require('fs');
+
+// 获取合约的 ABI 和字节码
+const contractPath = path.join(__dirname, 'build', 'contracts', 'AlexLiuCoin.json');
+const contractJson = JSON.parse(fs.readFileSync(contractPath, 'utf8'));
+
+// 获取合约的字节码
+const contractData = contractJson.bytecode;
+
+console.log("Contract deployment data:", contractData);
+
+```
+
+在 truffle-config.js里，指定solidity版本
+```js
+module.exports = {
+    compilers: {
+        solc: {
+            version: "0.8.20", // 使用的 Solidity 版本
+        }
+    }
+};
+
+```
+
+之后执行 truffle compile 进行编译，编译之后，能看到 build/contracts下有很多ABI json文件，之后 node getData.js 就可以得到data了
 
 ## 故障排查
 
