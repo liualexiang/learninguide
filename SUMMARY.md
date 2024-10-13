@@ -113,5 +113,6 @@
   * [加密与签名](./Security/加密与签名.md)
 * Solidity
   * [Solidity基础](./Solidity/solidity_basic.md)
+  * [Blockchain Testnet Faucet](./Solidity/Blockchain_Testnet_Faucet.md)
 * 收藏链接
   * [链接](./Tools/收藏链接.md)
