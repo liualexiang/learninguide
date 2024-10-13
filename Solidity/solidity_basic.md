@@ -63,7 +63,7 @@ contract B is A {
 
 **思考**：A合约调用B合约，A合约在链上，EOA account在本地，怎么付费给B合约？
 
-**答**：合约并不会自发调用，一切合约间的调用，均是EOA Account外部发起的。EOA Account是唯一拥有私钥的尸体，可以签名广播交易。链上的合约，只是规定了特定的逻辑的代码，必须通过外部账户的互动才能触发这个逻辑
+**答**：合约并不会自发调用，一切合约间的调用，均是EOA Account外部发起的。EOA Account是唯一拥有私钥的实体，可以签名广播交易。链上的合约，只是规定了特定的逻辑的代码，必须通过外部账户的互动才能触发这个逻辑
 
 
 
@@ -159,9 +159,32 @@ contract Updater {
 
 
 
+### 发币
+用别人写好的库，很容易发一个币(无需实现 transfer等方法，因为继承了openzeppelin 这个库，别人都已经写好了)，在 constructor里定义了初始供应量，这个初始供应量的单位是10^-18 次方，这个要注意
 
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
 
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
+contract AlexLiuCoin is ERC20, Ownable {
+    constructor(uint256 initialSupply) ERC20("AlexToken", "ALEX") Ownable(msg.sender) {
+        _mint(msg.sender, initialSupply);
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
+
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+}
+
+```
+之后在 MetaMask里，可以添加这个币的合约地址，将其加进去，就能看到token了
 
 
 
