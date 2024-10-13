@@ -6,5 +6,5 @@ https://testnet.bscscan.com/address/0x9ee0e0dec640866d96cf93f0cd7388b61a0a9cbc
 https://holesky.etherscan.io/address/0x9ee0E0Dec640866D96cF93F0cD7388B61a0a9cBc
 // 在这里申请 ETH Sepolia 0.01 个 ETH : https://www.sepoliafaucet.io/
 https://sepolia.etherscan.io/address/0x9ee0E0Dec640866D96cF93F0cD7388B61a0a9cBc
-
+// 在这里能申请到各个链上的 LINK 代币: https://faucets.chain.link/
 ```
