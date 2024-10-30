@@ -182,7 +182,14 @@ class TestMain:
         del os.environ['REGION']
 
 ```
+不过对于改环境变量，更好的办法是通过 monkeypatch的方法。如果用上面的方法，需要显性的删除 os.environ，并且所有的测试单元里，用的是同一份环境变量，这意味着，如果某一个单元测试改了环境变量的值，会影响另外一个单元测试。如果用下面的 monkeypatch，则所有的单元测试的环境变量是独立的。monkeypatch除了能改环境变量外，还能改某一个函数的返回值，某一个json的key或value等
+```python
+class TestAll:
+    @pytest.fixture(autouse=True)
+    def setup_env(self, monkeypatch):
+        monkeypatch.setenv("TEST_ENV", "1")
 
+```
 #### 使用 mock 方法来patch 函数返回值
 pytest 可以和 unittest 结合使用，比如当我们在 lambda_function.py 文件里，有一个 get_string_data 的函数，这个函数需要访问外部数据，但我们每次测试的时候，不想让这个接口访问外部数据，那么就可以用 mock的 patch方法，来模拟返回值。在模拟的时候，可以用with上下文管理器结合yield方法，也可以直接用装饰器。两种用法都是可以的
 ```python

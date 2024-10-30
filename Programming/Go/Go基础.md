@@ -1,6 +1,6 @@
 ## Go 基础语法 
 
-Go 程序的入口的package 和函数名，必须都是 main。
+Go 程序的入口的package 和函数名，必须都是 main。如果是一个包，包里函数小写开头，只能在这个包内使用，大写开头，则包内包外都可以使用。
 
 ### 循环
 
@@ -71,6 +71,31 @@ func getSum(num ...int) int {
 	return sum
 }
 
+```
+
+可变参数也是支持不确定类型的参数，示例：
+```go
+func printType(args ...interface{}) {
+	for _, arg := range args {
+		switch arg.(type) {
+		case int:
+			fmt.Println(arg, " type is int")
+
+		case string:
+			fmt.Println(arg, " type is string")
+
+		default:
+			fmt.Println(arg, " type is unknown")
+		}
+	}
+}
+```
+
+如果是在一个list后面加 ... 则表示解序列，示例：
+```go
+var s []string  
+s = append(s, []string{"a", "b", "c"}...)  
+fmt.Println(s)
 ```
 
 ### 数据类型:列表和切片
@@ -149,6 +174,24 @@ func updateList(l2 [4]int) {
 }
 ```
 
+
+
+
+
+## package
+1. 如果包里的函数名是小写字母开头，只能在包内使用。
+2. 一个包内只能有一个 init() 函数，这个函数会在import的时候生效。
+3. 包是可以匿名导入的， 在匿名导入的时候，只会执行 init()函数。导入方法是
+```go
+import _ packageName
+```
+
+4. 在调用包的时候，可以给包起一个别名。如果别名是 . 则可以直接用这个包里的函数，比如 fmt.Println 如果import的时候别名是 . ，那么就可以直接用 Println()了，而不是 fmt.Println()
+```go
+import (
+. "fmt"
+)
+```
 
 
 

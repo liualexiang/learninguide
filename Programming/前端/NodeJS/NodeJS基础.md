@@ -1,3 +1,13 @@
+## 版本
+NodeJS 默认使用的是 CommonJS模块系统，CommonJS 不支持 await。导入模块的语法是
+```js
+const { WebsocketServer } = require('ws');
+```
+
+但现代的浏览器和Nodejs都开始支持 ESM 模块(ECMAScript Modules)了，新的项目逐渐都过度到 ESM，尤其是考虑到跟浏览器和服务器兼容的项目，这个更推荐。ESM 也支持 await 示例导入模块 (使用ESM模块的话， package.json 里要设置 "type": "module"，或者文件扩展名后缀为 .mjs 而并非 .js)
+```js
+import { WebSocketServer } from 'ws';
+```
 ## tools
 nvm 管理nodejs 版本和npm
 ```shell
