@@ -1,4 +1,6 @@
-bitcoin-cli 连 btc 节点的端口是 8332，如果是 testnet是 18332，协议http
+bitcoin-cli 连 btc 节点的端口是 8332，如果是 testnet是 18332，协议http。signet是38332.
+
+signet 与 testnet的不同：testnet跟mainnet对应，是完全一样的，每一个节点都可能是出块节点，这也就导致了可能不稳定，效率低等。signet控制了出块节点，只有特定的节点是测试节点，这样就能保证整个网络的稳定性以及效率。
 
 BTC CLI: https://chainquery.com/bitcoin-cli
 
