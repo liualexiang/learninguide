@@ -76,3 +76,62 @@ New Address: tb1q8uput7ms7vemlwelg00jr6tkd0cz7ypdfppvv7
 
 
 ```
+
+
+## BTC Multisig wallet
+
+创建一个multisig wallet的脚本
+```bash
+#!/bin/bash -l
+
+for ((n=1;n<=3;n++))
+do
+        echo "creating wallet"
+        bitcoin-cli -testnet createwallet "participant_${n}"
+        echo "done"
+done
+
+
+declare -A xpubs
+
+for ((n=1;n<=3;n++))
+do
+ xpubs["internal_xpub_${n}"]=$(bitcoin-cli -testnet -rpcwallet="participant_${n}" listdescriptors | jq '.descriptors | [.[] | select(.desc | startswith("wpkh") and contains("/1/*"))][0] | .desc' | grep -Po '(?<=\().*(?=\))')
+
+ xpubs["external_xpub_${n}"]=$(bitcoin-cli -testnet -rpcwallet="participant_${n}" listdescriptors | jq '.descriptors | [.[] | select(.desc | startswith("wpkh") and contains("/0/*") )][0] | .desc' | grep -Po '(?<=\().*(?=\))')
+done
+for x in "${!xpubs[@]}"; do printf "[%s]=%s\n" "$x" "${xpubs[$x]}" ; done
+
+external_desc="wsh(sortedmulti(2,${xpubs["external_xpub_1"]},${xpubs["external_xpub_2"]},${xpubs["external_xpub_3"]}))"
+internal_desc="wsh(sortedmulti(2,${xpubs["internal_xpub_1"]},${xpubs["internal_xpub_2"]},${xpubs["internal_xpub_3"]}))"
+
+external_desc_sum=$(bitcoin-cli -testnet getdescriptorinfo $external_desc | jq '.descriptor')
+internal_desc_sum=$(bitcoin-cli -testnet getdescriptorinfo $internal_desc | jq '.descriptor')
+
+multisig_ext_desc="{\"desc\": $external_desc_sum, \"active\": true, \"internal\": false, \"timestamp\": \"now\"}"
+multisig_int_desc="{\"desc\": $internal_desc_sum, \"active\": true, \"internal\": true, \"timestamp\": \"now\"}"
+
+multisig_desc="[$multisig_ext_desc, $multisig_int_desc]"
+
+echo $multisig_desc
+
+# create a multi sig wallet
+bitcoin-cli -testnet -named createwallet wallet_name="multisig_wallet_01" disable_private_keys=true blank=true
+
+
+bitcoin-cli  -testnet -rpcwallet="multisig_wallet_01" importdescriptors "$multisig_desc"
+
+bitcoin-cli  -testnet -rpcwallet="multisig_wallet_01" getwalletinfo
+
+# bitcoin-cli -testnet -rpcwallet="multisig_wallet_01" getnewaddress
+
+# 获得一些测试币，注意要安装 imagemagick
+# python3 get_coin_testnet.py -c /root/bitcoin-27.0/bin/bitcoin-cli  -a tb1q0tzzd43zw6v6mr22rjwvjpqykdsat8kmyhdr2qkecv3pwsnph85qcjvz3m
+```
+
+测试
+
+```shell
+bitcoin-cli -rpcwallet="multisig_wallet_01" getnewaddress
+tb1qdg5pfx9p4dg3z4dj47j0fjfrq5c3jrj7s9tg4ulyggx2razqf6lsfrtk9j
+```
