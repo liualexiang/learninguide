@@ -88,6 +88,7 @@
     * [面向对象](./Programming/Python/面向对象.md)
     * [Python的坑](./Programming/Python/python的坑.md)
     * [ Python配置文件管理](./Programming/Python/Python配置文件管理.md)
+    * [HTTP Stream Response](./Programming/Python/HTTP_Stream_Response.md)
     * 
   * 设计模式
     * [设计模式](./Programming/设计模式/设计模式.md)

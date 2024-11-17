@@ -8,7 +8,7 @@
 Terraform基本使用：
 在下载好tf文件之后，直接执行下面的命令即可部署，如果在当前路径下有多个tf文件，则按照字母顺序执行
 
-```
+```shell
 terraform init
 terraform apply
 
@@ -20,7 +20,7 @@ terraform destroy //删除terraform资源
 Terraform可以配置环境变量，也可以不配置。如果配置环境变量的话，可以将环境变量保存到variables.tf这个文件中。变量可以指定不同的数据类型，比如list，set, map等格式，详情参考： https://www.terraform.io/docs/configuration/variables.html
 
 示例配置文件
-```
+```hcl
 variable "region" {
     default = "cn-north-1"
 }
