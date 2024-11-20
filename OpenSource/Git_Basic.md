@@ -112,7 +112,7 @@ git gc --aggressive --prune
 产生ssh public key方法，添加~/.ssh/id_rsa.pub文件内容
 
 ``` bash
-ssh-keygen -t rsa -b 4096 -C "liualexiang@gmail.com"
+ssh-keygen -t rsa -b 4096 -C "user@gmail.com"
 ```
 
 之后可以测试一下

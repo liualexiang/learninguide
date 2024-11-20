@@ -66,7 +66,7 @@ metadata:
   name: admin-binding
 subjects:
 - kind: User
-  name: liualexiang@gmail.com
+  name: user@gmail.com
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
