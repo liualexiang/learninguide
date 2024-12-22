@@ -79,7 +79,18 @@
   tail -f /var/log/pods/my-namespace_my-pod-uid/container-name/0.log
   ```
 
-  
+* 列出k8s所有的API，包括 CRD API
+```
+kubectl api-resources
+```
+
+* 检查 k8s 版本，包括客户端版本和服务端版本
+```
+kubectl version
+```
+```
+
+
 
 ## 常用测试的yaml
 

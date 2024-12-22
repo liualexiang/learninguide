@@ -120,4 +120,4 @@
   * [Solidity基础](./Solidity/solidity_basic.md)
   * [Blockchain Testnet Faucet](./Solidity/Blockchain_Testnet_Faucet.md)
 * 收藏链接
-  * [链接](./Tools/收藏链接.md)
+  * [链接](工具集.md)

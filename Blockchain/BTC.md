@@ -6,6 +6,8 @@ BTC CLI: https://chainquery.com/bitcoin-cli
 
 
 ```shell
+alias bitcoin-cli='/server/bitcoin/bin/bitcoin-cli --rpcuser=xx --rpcpassword=xxx'
+
 # 创建一个钱包，本质是存在本地的一个 SQLite 数据库里
 bitcoin-cli createwallet "alexwallet"
 bitcoin-cli listwallets
@@ -72,6 +74,7 @@ New Address: tb1q8uput7ms7vemlwelg00jr6tkd0cz7ypdfppvv7
 
 # https://coinfaucet.eu/en/btc-testnet/
 # https://testnet.help/en/btcfaucet/testnet#log
+# 未验证: https://tbtc.bitaps.com/
 # 未验证 https://support.chainstack.com/hc/en-us/articles/900001638963-Bitcoin-testnet-faucets
 
 
