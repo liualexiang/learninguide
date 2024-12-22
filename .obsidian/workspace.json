@@ -1,0 +1,233 @@
+{
+  "main": {
+    "id": "3441c82e8ab031c7",
+    "type": "split",
+    "children": [
+      {
+        "id": "f60a9591690e9598",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4ba17a77bd6de6e9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "SUMMARY.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "SUMMARY"
+            }
+          },
+          {
+            "id": "735e6c5dacfe04c9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OpenSource/K8S/CRD开发.md",
+                "mode": "source",
+                "backlinks": false,
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "CRD开发"
+            }
+          },
+          {
+            "id": "ca8d7f5de6832e24",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "baa5ec7b0f6f5b5d",
+    "type": "split",
+    "children": [
+      {
+        "id": "72a48301b9d804cf",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a2ee79c123076344",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "4357bae0bd304261",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "bitcoin-cli",
+                "matchingCase": true,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "bb6169070a4c9e96",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 226.5
+  },
+  "right": {
+    "id": "59bd2d47a38ae4b9",
+    "type": "split",
+    "children": [
+      {
+        "id": "db5ffaa6b166c5b7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a710e6d70aff5acf",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "OpenSource/Kafka/Kafka 基础.md",
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": true,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              },
+              "icon": "links-coming-in",
+              "title": "Kafka 基础 的反向链接列表"
+            }
+          },
+          {
+            "id": "dcaa724980b69f02",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "OpenSource/Kafka/Kafka 基础.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Kafka 基础 的出链列表"
+            }
+          },
+          {
+            "id": "eaad83f7d0968288",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": false
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "4b9be24245937fa8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "SUMMARY.md"
+              },
+              "icon": "lucide-list",
+              "title": "SUMMARY 的大纲"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 202.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "obsidian-kanban:创建新看板": false
+    }
+  },
+  "active": "4ba17a77bd6de6e9",
+  "lastOpenFiles": [
+    "OpenSource/K8S/CRD开发.md",
+    "SUMMARY.md",
+    "README.md",
+    "OpenSource/K8S/istio.md",
+    "Tools/工具集.md",
+    "OpenSource/K8S/k8s_basic.md",
+    "OpenSource/K8S/enter_node.md",
+    "OpenSource/K8S/Docker基础.md",
+    "OpenSource/K8S/helm/helm基础.md",
+    "Blockchain/BTC.md",
+    "OpenSource/ETCD.md",
+    "Security/SSL证书.md",
+    "Linux/jq.md",
+    "Linux/IO多路复用.md",
+    "Security/ECDSA.md",
+    "terraform/Terraform_Basic.md",
+    "Programming/Go/结构体入门.md",
+    "Programming/Go/Go常用功能.md",
+    "Security/RSA.md",
+    "Programming/Go/通道.md",
+    "Programming/Go/Go基础.md",
+    "Security/HTTP常见攻击.md",
+    "Solidity/solidity_basic.md",
+    "Solidity/Blockchain_Testnet_Faucet.md",
+    "OpenSource/Git_Basic.md",
+    "OpenSource/K8S/k8s_oidc.md",
+    "Web/Html_Css.assets/image-20210805234045863.png",
+    "Excalidraw",
+    "Tools/assets/Untitled.assets/image-20230625105922390.png",
+    "未命名.canvas",
+    "Blockchain",
+    "OpenSource/Kafka",
+    "Programming/Solidity",
+    "Math",
+    "Programming/前端",
+    "Untitled.canvas",
+    "Programming/前端/NodeJS"
+  ]
+}
