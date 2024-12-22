@@ -52,6 +52,7 @@
     * [混沌工程](OpenSource/K8S/chaos/混沌工程.md)
     * [Istio](./OpenSource/K8S/istio.md)
     * [生态](./OpenSource/K8S/生态.md)
+    * [CRD开发](CRD开发.md)
   * [Cloud_Custodian](./OpenSource/compliance/Cloud_Custodian.md)
   * [Jenkins Basic](OpenSource/Jenkins_Basic.md)
   * [Nginx](./OpenSource/Nginx/Nginx配置.md)
@@ -105,12 +106,6 @@
 	* [多项式插值法](./Math/多项式插值法.md)
   
 
-* Tools
-  * [视频处理ffmpeg ](./Tools/视频处理ffmpeg.md)
-  * [IDE配置](./Tools/IDE配置.md)
-  * [iTerm2美化](./Tools/iterm2美化.md)
-  * [密码管理](./Tools/密码管理.md)
-  * [FRP配置](./Tools/FRP配置.md)
 * Security
   * [HTTP常见攻击](./Security/HTTP常见攻击.md)
   * [加密与签名](./Security/加密与签名.md)
@@ -119,5 +114,10 @@
 * Solidity
   * [Solidity基础](./Solidity/solidity_basic.md)
   * [Blockchain Testnet Faucet](./Solidity/Blockchain_Testnet_Faucet.md)
-* 收藏链接
-  * [链接](工具集.md)
+* Tools
+  * [视频处理ffmpeg ](./Tools/视频处理ffmpeg.md)
+  * [IDE配置](./Tools/IDE配置.md)
+  * [iTerm2美化](./Tools/iterm2美化.md)
+  * [密码管理](./Tools/密码管理.md)
+  * [FRP配置](./Tools/FRP配置.md)
+  *  [工具集](./Tools/工具集.md)
