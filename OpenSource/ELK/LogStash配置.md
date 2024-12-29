@@ -87,7 +87,7 @@ if "_grokparsefailure" in [tags] {
 
 
 ## 解读Filter常用部分，也是对logstash配置的关键部分
-
+* 在filter里，一般可以用 json { source => "message"} 来对 message字段进行展开。如果 message是一个list，想要对list展开，则要用 split
 * filter 部分的split   
   * 这部分的split主要是用来将JSON文件中的list数据拆开，建议将所有有关list的都拆出来。之所以有4个split，是因为有4个list (records最外侧一层，properties.flows一层，flows.flows一层，flows.flowTuples一层)，从外层到内层注意拆解。
     * 示例 split { field => "[records]" }

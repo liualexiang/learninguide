@@ -202,3 +202,22 @@ docker system prune
 ```
 
 具体分区配置在 ~/.docker/daemon.json 或 /etc/docker/daemon.json 配置文件中
+
+
+### 使用 crictl 管理容器
+查看容器
+```
+crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock  ps
+```
+停止容器
+```
+crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock stop xxx
+```
+删除容器
+```
+crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock rm xxx
+```
+看容器日志
+```
+crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock logs xxx
+```

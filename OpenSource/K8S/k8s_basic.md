@@ -88,9 +88,7 @@ kubectl api-resources
 ```
 kubectl version
 ```
-```
-
-
+``
 
 ## 常用测试的yaml
 
@@ -150,7 +148,6 @@ kubectl edit configmap coredns -n kube-system
 然后可以起一个测试dns的pod来测一下解析
 ```
  kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
-```
 
 
 不过在云平台托管的k8s中，如Azure的AKS中，无权限编辑 Corefile，以Azure为例，Azure提供的aks的coredns的deployment中，添加了对挂载的volume的支持，通过查看coredns的deployment可以看到，默认挂载了一个叫做 coredns-custom的ConfigMap，因此我们可以创建一个名为 coredns-custom的configmap，在这个configmap中来添加自定义DNS解析的条目.
@@ -173,7 +170,7 @@ kubectl describe deployment coredns -n kube-system
 ```
 
 添加自定义解析，将 www.example.org 解析到 11.22.33.44，需要注意的是：configmap的名字必须为 coredns-custom，这样CoreDNS才能识别，其他名字无法识别   
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -204,5 +201,18 @@ kubectl rollout restart -n kube-system deployment/coredns
 ## K8S 的坑
 
 * 使用 kubectl apply的时候，如果资源名发生变更，其不会删除旧的资源，会创建一个新的，需要手动删除。使用helm就没这个问题，能更好的管理应用的生命周期
-* 
 
+## kubeadm 故障排查
+在使用 kubeadm 搭建k8s，使用 containerd 的时候，如果遇到安装了 网络插件，如flannel之后，node依然NotReady.
+describe node报错"container runtime network not ready:NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"。
+在node节点上，看containerd 的日志  journalctl -u containerd | grep cni，报错 
+"Dec 29 05:46:20 ip-10-79-41-224.ap-northeast-1.compute.internal containerd[2862]: time="2024-12-29T05:46:20.428267622Z" level=info msg="No cni config template is specified, wait for other system components to drop the config.""
+
+此时应该是 containerd 没有启用CNI插件导致的。需要在 /etc/containerd/config.toml 里加一行
+
+```toml
+[plugins."io.containerd.grpc.v1.cri".cni]
+  bin_dir = "/opt/cni/bin"
+  conf_dir = "/etc/cni/net.d"
+  max_conf_num = 1
+```

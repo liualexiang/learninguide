@@ -23,31 +23,22 @@
             }
           },
           {
-            "id": "735e6c5dacfe04c9",
+            "id": "dd44eae421ce3a5f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "OpenSource/K8S/CRD开发.md",
+                "file": "Linux/yum.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CRD开发"
-            }
-          },
-          {
-            "id": "ca8d7f5de6832e24",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "yum"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -78,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "bitcoin-cli",
+                "query": "logstash",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -165,10 +156,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SUMMARY.md"
+                "file": "Linux/yum.md"
               },
               "icon": "lucide-list",
-              "title": "SUMMARY 的大纲"
+              "title": "yum 的大纲"
             }
           }
         ],
@@ -190,34 +181,34 @@
       "obsidian-kanban:创建新看板": false
     }
   },
-  "active": "4ba17a77bd6de6e9",
+  "active": "dd44eae421ce3a5f",
   "lastOpenFiles": [
-    "OpenSource/K8S/CRD开发.md",
     "SUMMARY.md",
+    "Linux/yum.md",
+    "OpenSource/K8S/k8s_basic.md",
     "README.md",
+    "OpenSource/K8S/helm/helm基础.md",
+    "OpenSource/K8S/Docker基础.md",
+    "OpenSource/ELK/LogStash配置.md",
+    "OpenSource/MySQL_调优.md",
+    "Linux/systemd.md",
+    "Linux/tmux和screen.md",
+    "Linux/IO多路复用.md",
+    "Linux/Iptables.md",
+    "Linux/jq.md",
+    "OpenSource/K8S/CRD开发.md",
     "OpenSource/K8S/istio.md",
     "Tools/工具集.md",
-    "OpenSource/K8S/k8s_basic.md",
     "OpenSource/K8S/enter_node.md",
-    "OpenSource/K8S/Docker基础.md",
-    "OpenSource/K8S/helm/helm基础.md",
     "Blockchain/BTC.md",
     "OpenSource/ETCD.md",
     "Security/SSL证书.md",
-    "Linux/jq.md",
-    "Linux/IO多路复用.md",
     "Security/ECDSA.md",
     "terraform/Terraform_Basic.md",
     "Programming/Go/结构体入门.md",
     "Programming/Go/Go常用功能.md",
     "Security/RSA.md",
     "Programming/Go/通道.md",
-    "Programming/Go/Go基础.md",
-    "Security/HTTP常见攻击.md",
-    "Solidity/solidity_basic.md",
-    "Solidity/Blockchain_Testnet_Faucet.md",
-    "OpenSource/Git_Basic.md",
-    "OpenSource/K8S/k8s_oidc.md",
     "Web/Html_Css.assets/image-20210805234045863.png",
     "Excalidraw",
     "Tools/assets/Untitled.assets/image-20230625105922390.png",

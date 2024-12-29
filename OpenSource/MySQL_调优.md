@@ -45,3 +45,10 @@
 * 找到哪个语句被锁了，并找到进程id，然后在mysql客户端中执行 ```kill $ID ``` 即可杀掉进程 
 
 ##### 存储引擎
+
+
+#### MySQL 语句
+从 a 表里fileld_1 读出来，插入到b 表的 fileld_1里，同时 b 表有fileld_2是当前的时间，field_3为固定的"test"字符串
+```
+insert into b(field_1, field_2， field_3) select field_1, now(), "test" from a;
+```
