@@ -28,13 +28,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "SUMMARY.md",
+                "file": "OpenSource/K8S/k8s网络.md",
                 "mode": "source",
                 "backlinks": false,
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SUMMARY"
+              "title": "k8s网络"
             }
           }
         ],
@@ -69,7 +69,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "logstash",
+                "query": "crictl",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -156,10 +156,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SUMMARY.md"
+                "file": "OpenSource/K8S/k8s网络.md"
               },
               "icon": "lucide-list",
-              "title": "SUMMARY 的大纲"
+              "title": "k8s网络 的大纲"
             }
           }
         ],
@@ -183,8 +183,11 @@
   },
   "active": "dd44eae421ce3a5f",
   "lastOpenFiles": [
-    "Programming/Algorithm/链式结构.md",
     "SUMMARY.md",
+    "OpenSource/K8S/k8s网络.md",
+    "README.md",
+    "Programming/Algorithm/返回list升序序列的最大长度.md",
+    "Programming/Algorithm/链式结构.md",
     "OpenSource/K8S/helm/helm基础.md",
     "OpenSource/K8S/chaos/混沌工程.md",
     "OpenSource/gRPC/RPC与REST.md",
@@ -195,7 +198,6 @@
     "OpenSource/compliance/Cloud_Custodian.md",
     "Linux/yum.md",
     "OpenSource/K8S/k8s_basic.md",
-    "README.md",
     "OpenSource/K8S/Docker基础.md",
     "OpenSource/MySQL_调优.md",
     "Linux/systemd.md",
@@ -207,8 +209,6 @@
     "OpenSource/K8S/istio.md",
     "Tools/工具集.md",
     "OpenSource/K8S/enter_node.md",
-    "Blockchain/BTC.md",
-    "OpenSource/ETCD.md",
     "Web/Html_Css.assets/image-20210805234045863.png",
     "Excalidraw",
     "Tools/assets/Untitled.assets/image-20230625105922390.png",
