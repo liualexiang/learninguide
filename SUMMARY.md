@@ -80,7 +80,6 @@
 * Programming
   * 算法
     * [返回list中最大生序子序列长度](Programming/Algorithm/返回list升序序列的最大长度.md)
-    * [链式结构](Programming/Algorithm/链式结构.md)
   * Python技巧
     * [Python的语法糖](./Programming/Python/Python的语法糖.md)
     * [Python常用装饰器](./Programming/Python/python常用装饰器.md)
