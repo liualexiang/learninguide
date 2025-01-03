@@ -74,6 +74,7 @@
   * [OS 基础](./Linux/OS基础.md)
   * [jq基础](./Linux/jq.md)
   * [yum](./Linux/yum.md)
+  * [neovim](./Linux/neovim.md)
 * Web
   * [Html Css](Web/Html_Css.md)
   * [Web部署](./Web/Web_deployment.md)
