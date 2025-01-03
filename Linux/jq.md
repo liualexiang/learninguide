@@ -3,19 +3,31 @@
 jq 和 AWS CLI 都是使用 JMESPATH 语法进行查询，但是内置的一些函数是不一样的，因此查询语法上也略有差异
 
 
-
-## 变量的处理
-
-在jq的查询中，单引号不会进行shell的变量替换，双引号会引用linux shell的变量。比如当查询的结果里有 CombinName 的变量的时候，想要让 jq 能解析这个变量，可以用下面的方法
-
+## 添加字段
+可以用 += 添加字段
 ```shell
-aws appconfig list-applications --region ${aws_region} --query "Items[*]" --output json | jq ".[] | select(.Name == \"${CombineName}-Application\") | .Id"
+echo '{"a":{"b":"c"}}' | jq '.a+={"d":3}'
+```
+如果是对一个已存在的字段进行 += 操作，则会更新这个字段
+```shell
+echo '{"a":{"b":"c"}}' | jq '.a+={"b":3}'
+```
+如果有变量，jq 后面使用单引号的时候，要用 --arg 将变量从操作系统里，传递给 jq，才能识别到
+```shell
+export NUM=4
+echo '{"a":{"b":"c"}}' | jq --arg num ${NUM} '.a+={"d":$num}'
 ```
 
-如果我们使用单引号，则没法处理这个变量，此时可以通过 --arg 给 jq 注入一个变量，然后jq的 select 函数使用注入的变量
-
+不过需要注意，上述示例，在 --arg 的时候，shell 里的 NUM 传递给jq 的 num的时候，变量值 4 就变成了字符串，如果想要变成数字，需要用 tonumber 函数，示例
 ```shell
-aws appconfig list-applications --region ${aws_region} --query "Items[*]" --output json | jq -r --arg appconfig_name "${CombineName}-Application" '.[] | select(.Name == $appconfig_name) | .Id'
+export NUM=4
+echo '{"a":{"b":"c"}}' | jq --arg num ${NUM} '.a+={"d":($num | tonumber)}'
+```
+
+如果想要直接用shell里的变量，不做传递，那么 jq 后面要用双引号，此时注意可能要做转义。这个示例中，由于 shell里定义的 NUM 是数值型，所以jq生成的json文档，也是数值型
+```shell
+ export NUM=4
+ echo '{"a":{"b":"c"}}' | jq ".a+={\"d\":$NUM}"
 ```
 
 
