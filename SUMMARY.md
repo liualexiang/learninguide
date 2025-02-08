@@ -59,6 +59,7 @@
   * [Nginx](./OpenSource/Nginx/Nginx配置.md)
   * [ETCD](./OpenSource/ETCD.md)
   * [正则](./OpenSource/正则.md)
+  * [VictoriaMetrics](./OpenSource/VictoriaMetrics.md)
 * MySQL
   * [MySQL 调优](OpenSource/MySQL_调优.md)
 
