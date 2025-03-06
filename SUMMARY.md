@@ -60,6 +60,7 @@
   * [ETCD](./OpenSource/ETCD.md)
   * [正则](./OpenSource/正则.md)
   * [VictoriaMetrics](./OpenSource/VictoriaMetrics.md)
+  * [Kafka](./OpenSource/Kafka/Kafka基础.md)
 * MySQL
   * [MySQL 调优](OpenSource/MySQL_调优.md)
 
