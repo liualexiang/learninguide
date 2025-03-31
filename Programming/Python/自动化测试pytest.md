@@ -239,7 +239,30 @@ def test_connect_to_somewhere(mock_session, mock_response):
 整个项目中所有需要使用的 fixture 固件，都会放到 conftest.py 文件里，pytest会自动引用，无需手动指定
 
 #### 使用parametrize进行参数化测试
+##### 示例一
+当需要执行pytest，有多个mock的数据，希望对于这些数据进行测试，可以用 parametrize 来做，比如:
 
+```python
+messages = [
+    "message #1",
+    "message #2",
+    "message #3"
+]
+
+def my_print(i):
+    print(f"print {i}")
+
+class TestAll:
+    @pytest.mark.parametrize("msg", messages)
+    def test_print(self, msg):
+        my_print(msg)
+```
+
+注意：上述示例中， parametrize 会将 messages 列表里的每一个元素，在每一次测试的时候都传给 msg，下面的 test_print 函数里的参数，也必须叫 msg才行。
+
+在真实的使用场景中，有可能 messages 列表是某一个方法的返回值，此时我们结合 unittest.mock 的 patch方法，将这个 messages 列表，作为方法的返回值，然后 test_print()里，就能用这个mock的返回值了
+
+##### 示例二
 比如我的代码是这样的，此时如果对每一个场景都单独写一个test函数，就会很麻烦，比如年纪大于18写一个，小于18写一个，年龄格式不对的多种场景(输入的是文本，年龄是负数，是小数等)，那么要写太多的test_is_audit函数，会很麻烦
 ```python
 def is_adult(age: int):
@@ -280,6 +303,7 @@ if __name__ == '__main__':
     pytest.main()
 
 ```
+
 
 ## Pycharm debug
 
