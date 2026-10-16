@@ -13,16 +13,32 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming/Python/python的坑.md",
+                "file": "OpenSource/Ansible_Basic.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "python的坑"
+              "title": "Ansible_Basic"
+            }
+          },
+          {
+            "id": "60442222ce608d19",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Security/加密与签名.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "加密与签名"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -42,7 +58,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -54,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "fluxcd",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -141,13 +159,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Programming/Python/python的坑.md",
+                "file": "Security/加密与签名.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of python的坑"
+              "title": "Outline"
             }
           }
         ],
@@ -166,38 +184,37 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "f713d4033534d181",
+  "active": "60442222ce608d19",
   "lastOpenFiles": [
+    "Security/HTTP常见攻击.md",
+    "Security/RSA.md",
+    "OpenSource/K8S/K8S_DeepDive.md",
+    "Tools/密码管理.md",
+    "Tools/iterm2美化.md",
+    "Tools/FRP配置.md",
+    "OpenSource/使用TPC_DS产生压测数据.md",
+    "Tools/IDE配置.md",
+    "Programming/Python/python常用装饰器.md",
+    "OpenSource/ZooKeeper_基础.md",
+    "OpenSource/SSH_Tunnel_上网.md",
+    "Azure/Azure_CMI_SDWAN.md",
+    "OpenSource/K8S/AWS_EKS.md",
+    "OpenSource/代码扫描.md",
+    "OpenSource/gitbook_basic.md",
+    "Programming/Go/通道.md",
+    "Programming/Go/Go基础.md",
+    "OpenSource/Ansible_Basic.md",
+    "Programming/Python/Python配置文件管理.md",
+    "Programming/Python/Python项目管理.md",
+    "Tools/工具集.md",
+    "Programming/Python/python的坑.md",
     "OpenSource/ELK/LogStash配置.md",
     "OpenSource/ELK/Kibana_可视化.md",
     "OpenSource/ELK/ES_Search_Query.md",
     "OpenSource/ELK/ES_Get_Started.md",
-    "SUMMARY.md",
-    "OpenSource/CPU内存管理.md",
-    "README.md",
-    "Tools/系统设计.md",
-    "terraform/Terraform_Basic.md",
-    "OpenSource/K8S/argoCD 与 FluxCD.md",
-    "Linux/tmux和screen.md",
-    "Security/加密与签名.md",
-    "Security/TLS.md",
-    "Security/SSL证书.md",
-    "Security/RSA.md",
-    "Security/NitroTPM 和 EC2 attestation.md",
-    "Security/HTTP常见攻击.md",
-    "Security/ECDSA.md",
-    "Security/CDS.md",
-    "Math/多项式插值法.md",
-    "OpenSource/代码扫描.md",
-    "Linux/neovim.md",
-    "Superset/Superset部署手册.md",
-    "OpenSource/Nginx/Nginx配置.md",
-    "Azure/AKS_Basic.md",
-    "OpenSource/K8S/AWS_EKS.md",
     "未命名 2.base",
     "未命名 1.base",
     "未命名.base",
